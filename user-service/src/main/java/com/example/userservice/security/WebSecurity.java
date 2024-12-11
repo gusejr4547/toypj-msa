@@ -18,6 +18,9 @@ public class WebSecurity {
                 authorize.requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/users/**").permitAll()
+                        .requestMatchers("/health_check").permitAll()
+                        .requestMatchers("/user-service/health_check").permitAll()
+
                         .anyRequest().authenticated()
         );
         http.headers(header -> header.frameOptions(frameOptions -> frameOptions.sameOrigin()));
