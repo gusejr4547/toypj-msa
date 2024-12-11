@@ -1,6 +1,7 @@
 package com.example.userservice.dto;
 
-import jakarta.validation.constraints.Size;
+import com.example.userservice.vo.ResponseOrder;
+import java.util.List;
 import lombok.*;
 
 import java.util.Date;
@@ -19,4 +20,6 @@ public class UserDto {
     private Date createAt;
 
     private String encryptedPwd;
+
+    private List<ResponseOrder> orders;
 }

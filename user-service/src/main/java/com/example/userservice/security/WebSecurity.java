@@ -20,6 +20,7 @@ public class WebSecurity {
                         .requestMatchers("/users/**").permitAll()
                         .requestMatchers("/health_check").permitAll()
                         .requestMatchers("/user-service/health_check").permitAll()
+                        .requestMatchers("/user-service/users/**").permitAll()
 
                         .anyRequest().authenticated()
         );
