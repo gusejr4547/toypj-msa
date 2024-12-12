@@ -29,7 +29,7 @@ public class CatalogController {
     }
 
     @GetMapping("/catalogs")
-    public ResponseEntity<List<ResponseCatalog>> getUsers(){
+    public ResponseEntity<List<ResponseCatalog>> getCatalogs(){
         List<CatalogEntity> userList = catalogService.getAllCatalogs();
 
         List<ResponseCatalog> result = new ArrayList<>();
