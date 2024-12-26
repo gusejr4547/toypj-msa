@@ -5,6 +5,7 @@ import com.example.userservice.entity.UserEntity;
 import com.example.userservice.mapper.UserMapper;
 import com.example.userservice.service.UserService;
 import com.example.userservice.vo.Greeting;
+import com.example.userservice.vo.RequestLogin;
 import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user-service")
+@RequestMapping("/")
 @RequiredArgsConstructor
 public class UserController {
 
