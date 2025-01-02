@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -55,6 +56,7 @@ public class WebSecurity {
                                 .requestMatchers("/h2-console/**").permitAll()
                                 .requestMatchers("/error").permitAll()
                                 .requestMatchers("/health_check").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/users").permitAll()
 //                        .requestMatchers("/users/**").permitAll()
                                 .requestMatchers("/**").access(
                                         new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1') or hasIpAddress('222.97.25.153')")
