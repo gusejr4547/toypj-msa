@@ -60,6 +60,13 @@ dependencies {
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.12.6'
 
 
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-config
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-bootstrap
+    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 }
 

@@ -37,6 +37,13 @@ logging:
     org.springframework.security: debug
     com.example.userservice: debug
 
-token:
-  expiration-time: 86400000 # 1day
-  secret: ZGG1}v0m:t.U}wvN]r#)Y_.:c}Ydm8p*
+# actuator config
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans
+
+#token:
+#  expiration-time: 86400000 # 1day
+#  secret: ZGG1}v0m:t.U}wvN]r#)Y_.:c}Ydm8p*
