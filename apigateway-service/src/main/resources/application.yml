@@ -43,6 +43,14 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
             - Path=/user-service/**
             - Method=GET
           filters:
@@ -80,5 +88,16 @@ spring:
                 preLogger: true
                 postLogger: true
 
+    config:
+      name: ecommerce
+  config:
+    import: optional:configserver:http://127.0.0.1:8888
+
+
 token:
   secret: ZGG1}v0m:t.U}wvN]r#)Y_.:c}Ydm8p*
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httpexchanges
