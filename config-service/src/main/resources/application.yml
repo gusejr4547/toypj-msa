@@ -4,9 +4,16 @@ server:
 spring:
   application:
     name: config-service
+#  profiles:
+#    active: native
 
   cloud:
     config:
       server:
+#        native:
+#          search-locations: file:///${user.home}/Desktop/Work/native/file-repo
         git:
-          uri: file:///C:\Users\gusej\Desktop\config-data
+#          uri: file:///C:\Users\gusej\Desktop\config-data
+          uri: https://github.com/gusejr4547/toypj-msa-config
+#          username: <github-id>
+#          password: <github-accessToken>
