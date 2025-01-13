@@ -90,14 +90,15 @@ spring:
 
     config:
       name: ecommerce
+      profile: dev
   config:
     import: optional:configserver:http://127.0.0.1:8888
 
-
-token:
-  secret: ZGG1}v0m:t.U}wvN]r#)Y_.:c}Ydm8p*
 management:
   endpoints:
     web:
       exposure:
         include: refresh, health, beans, httpexchanges
+
+#token:
+#  secret: ZGG1}v0m:t.U}wvN]r#)Y_.:c}Ydm8p*
