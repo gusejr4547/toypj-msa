@@ -11,6 +11,11 @@ eureka:
 spring:
   application:
     name: apigateway-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   cloud:
     gateway:
       default-filters:
@@ -89,8 +94,8 @@ spring:
                 postLogger: true
 
     config:
-      name: ecommerce
-      profile: dev
+      name: config-service
+#      profile: dev
   config:
     import: optional:configserver:http://127.0.0.1:8888
 
@@ -98,7 +103,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httpexchanges
+        include: refresh, health, beans, httpexchanges, busrefresh
 
 #token:
 #  secret: ZGG1}v0m:t.U}wvN]r#)Y_.:c}Ydm8p*
