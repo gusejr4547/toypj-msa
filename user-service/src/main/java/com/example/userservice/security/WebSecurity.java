@@ -57,6 +57,7 @@ public class WebSecurity {
                                 .requestMatchers("/error").permitAll()
                                 .requestMatchers("/health_check").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                                .requestMatchers("/users/**").permitAll() // 이거 안하면 /users , /users/{userid}이거 필터적용해서 403생김
 //                        .requestMatchers("/users/**").permitAll()
                                 .requestMatchers("/**").access(
                                         new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1') or hasIpAddress('222.97.25.153')")
