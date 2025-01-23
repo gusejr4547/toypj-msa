@@ -47,6 +47,7 @@ greeting:
 logging:
   level:
     org.springframework.security: debug
+    com.example.userservice.client: debug
     com.example.userservice: debug
 
 # actuator config
