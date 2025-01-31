@@ -3,6 +3,7 @@ package com.example.userservice.service;
 import com.example.userservice.client.OrderServiceClient;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.entity.UserEntity;
+import com.example.userservice.error.FeignErrorDecoder;
 import com.example.userservice.mapper.UserMapper;
 import com.example.userservice.repository.UserRepository;
 import com.example.userservice.vo.ResponseOrder;
@@ -35,6 +36,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final RestTemplate restTemplate;
     private final OrderServiceClient orderServiceClient;
+    private final FeignErrorDecoder feignErrorDecoder;
     private final Environment env;
 
     // 스프링 시큐리티 UserDetailService 상속받은 메소드
@@ -83,12 +85,15 @@ public class UserServiceImpl implements UserService {
         /* Feign Client 사용 */
         /* Feign Exception Handling */
 
-        List<ResponseOrder> orderList = null;
-        try {
-            orderList = orderServiceClient.getOrders(userId);
-        } catch (FeignException ex) {
-            log.error(ex.getMessage());
-        }
+//        List<ResponseOrder> orderList = null;
+//        try {
+//            orderList = orderServiceClient.getOrders(userId);
+//        } catch (FeignException ex) {
+//            log.error(ex.getMessage());
+//        }
+
+        /* Error Decoder */
+        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
 
         userDto.setOrders(orderList);
 
