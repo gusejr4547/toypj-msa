@@ -1,10 +1,7 @@
 package com.example.catalogservice.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
@@ -25,6 +22,7 @@ public class CatalogEntity {
     @Column(nullable = false)
     private String productName;
 
+    @Setter
     @Column(nullable = false)
     private Integer stock;
 
