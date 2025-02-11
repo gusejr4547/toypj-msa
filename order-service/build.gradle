@@ -42,6 +42,12 @@ dependencies {
     implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.6.3'
     // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
     annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.6.3'
+
+    // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
+    implementation group: 'com.mysql', name: 'mysql-connector-j', version: '9.2.0'
+
+    // https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
+    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '3.3.2'
 }
 
 dependencyManagement {
