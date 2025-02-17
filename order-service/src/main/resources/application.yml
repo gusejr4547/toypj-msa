@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: order-service
+#  zipkin:
+#    base-url: http://localhost:9411
+#    enabled: true
   h2:
     console:
       enabled: true
@@ -38,3 +41,20 @@ greeting:
 logging:
   level:
     com.example.orderservice: debug
+  pattern:
+    correlation: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: B3
+      produce: b3_multi
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+  endpoints:
+    web:
+      exposure:
+        include: health, httptrace, info, metrics, prometheus

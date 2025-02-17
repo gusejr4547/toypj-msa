@@ -48,6 +48,20 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
     implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '3.3.2'
+
+    // actuator 의존성 추가해야 tracing, zipkin 관련 활용 가능
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // 분산추적
+    // https://mvnrepository.com/artifact/io.micrometer/micrometer-observation
+    implementation 'io.micrometer:micrometer-observation'
+    // https://mvnrepository.com/artifact/io.micrometer/micrometer-tracing-bridge-brave
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+    // https://mvnrepository.com/artifact/io.zipkin.reporter2/zipkin-reporter-brave
+    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
+    // https://mvnrepository.com/artifact/io.zipkin.brave/brave-instrumentation-spring-web
+    implementation 'io.zipkin.brave:brave-instrumentation-spring-web'
 }
 
 dependencyManagement {

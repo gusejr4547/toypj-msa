@@ -59,21 +59,34 @@ dependencies {
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.12.6'
 
-
+    // config server 연결
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-config
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
-
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-bus-amqp
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp', version: '4.2.0'
 
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.2.0'
 
+    // circuit breaker
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-circuitbreaker-resilience4j
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-circuitbreaker-resilience4j', version: '3.2.0'
+
+    // 분산추적
+    // https://mvnrepository.com/artifact/io.micrometer/micrometer-observation
+    implementation 'io.micrometer:micrometer-observation'
+    // https://mvnrepository.com/artifact/io.micrometer/micrometer-tracing-bridge-brave
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+    // https://mvnrepository.com/artifact/io.zipkin.reporter2/zipkin-reporter-brave
+    implementation 'io.zipkin.reporter2:zipkin-reporter-brave' // zipkin 서버에 보내는 역할
+    // https://mvnrepository.com/artifact/io.zipkin.brave/brave-instrumentation-spring-web
+    implementation 'io.zipkin.brave:brave-instrumentation-spring-web'
+    // 프로젝트에서 Spring Cloud OpenFeign의 FeignClient를 사용하고 있다면 아래 의존성도 추가
+    // https://mvnrepository.com/artifact/io.github.openfeign/feign-micrometer
+    implementation 'io.github.openfeign:feign-micrometer'
+
 
 }
 
