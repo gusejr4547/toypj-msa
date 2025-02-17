@@ -10,6 +10,8 @@ import com.example.userservice.vo.ResponseOrder;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
@@ -38,6 +40,8 @@ public class UserServiceImpl implements UserService {
     private final OrderServiceClient orderServiceClient;
     private final FeignErrorDecoder feignErrorDecoder;
     private final Environment env;
+
+    private final CircuitBreakerFactory circuitBreakerFactory;
 
     // 스프링 시큐리티 UserDetailService 상속받은 메소드
     @Override
@@ -93,7 +97,12 @@ public class UserServiceImpl implements UserService {
 //        }
 
         /* Error Decoder */
-        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
+//        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
+
+        /* circuit breaker */
+        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitbreaker");
+        List<ResponseOrder> orderList = circuitBreaker.run(() -> orderServiceClient.getOrders(userId),
+                throwable -> new ArrayList<>());
 
         userDto.setOrders(orderList);
 
