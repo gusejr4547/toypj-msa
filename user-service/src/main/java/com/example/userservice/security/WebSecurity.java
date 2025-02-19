@@ -55,6 +55,7 @@ public class WebSecurity {
                                 .requestMatchers("/actuator/**").permitAll()
                                 .requestMatchers("/h2-console/**").permitAll()
                                 .requestMatchers("/error").permitAll()
+                                .requestMatchers("/welcome").permitAll()
                                 .requestMatchers("/health_check").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users").permitAll()
                                 .requestMatchers("/users/**").permitAll() // 이거 안하면 /users , /users/{userid}이거 필터적용해서 403생김

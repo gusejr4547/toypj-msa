@@ -62,6 +62,10 @@ dependencies {
     implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
     // https://mvnrepository.com/artifact/io.zipkin.brave/brave-instrumentation-spring-web
     implementation 'io.zipkin.brave:brave-instrumentation-spring-web'
+
+    // 모니터링
+    // https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 }
 
 dependencyManagement {

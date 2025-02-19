@@ -87,6 +87,9 @@ dependencies {
     // https://mvnrepository.com/artifact/io.github.openfeign/feign-micrometer
     implementation 'io.github.openfeign:feign-micrometer'
 
+    // 모니터링
+    // https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 
 }
 
