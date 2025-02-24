@@ -5,13 +5,13 @@ spring:
   application:
     name: config-service
   rabbitmq:
-    host: 127.0.0.1
-#    host: rabbitmq # 같은네트워크에 있는 경우 container 이름으로 접근 가능
+#    host: 127.0.0.1
+    host: rabbitmq # 같은네트워크에 있는 경우 container 이름으로 접근 가능
     port: 5672
     username: guest
     password: guest
-  profiles:
-      active: native
+#  profiles:
+#      active: native
   cloud:
     config:
       server:
