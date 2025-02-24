@@ -6,6 +6,7 @@ spring:
     name: config-service
   rabbitmq:
     host: 127.0.0.1
+#    host: rabbitmq # 같은네트워크에 있는 경우 container 이름으로 접근 가능
     port: 5672
     username: guest
     password: guest
@@ -31,6 +32,7 @@ management:
 encrypt:
 #  key: abcdefghijklmnopqrstuvwxyz0123456789
   key-store:
-    location: file:///${user.home}/Desktop/keystore/apiEncryptionKey.jks # privateKey
+#    location: file:///${user.home}/Desktop/keystore/apiEncryptionKey.jks # privateKey
+    location: file:/apiEncryptionKey.jks
     password: test1234
     alias: apiEncryptionKey
