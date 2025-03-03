@@ -28,6 +28,19 @@ services:
     networks:
       - ecommerce-network
 
+  discovery-service:
+    build:
+      context: ./discoveryservice
+      dockerfile: Dockerfile
+    container_name: discovery-service
+    ports:
+      - "8761:8761"
+    # environment:
+    #   SPRING_CLOUD_CONFIG_NAME: ecommerce
+    #   SPRING_CONFIG_IMPORT: optional:configserver:http://config-service:8888
+    networks:
+      - ecommerce-network
+
 networks:
   ecommerce-network:
     driver: bridge
