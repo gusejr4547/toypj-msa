@@ -110,7 +110,11 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httpexchanges, busrefresh, info, metrics, prometheus
+        include: refresh, health, beans, httpexchanges, busrefresh, info, metrics, prometheus, env
+
+#  endpoint:
+#    env:
+#      show-values: always
 
 #token:
 #  secret: ZGG1}v0m:t.U}wvN]r#)Y_.:c}Ydm8p*
