@@ -1,4 +1,16 @@
 services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: mydb
+      MYSQL_ROOT_PASSWORD: 1234
+    networks: 
+      - ecommerce-network
+
+
   rabbitmq:
     image: rabbitmq:4-management
     container_name: rabbitmq
@@ -15,12 +27,20 @@ services:
       - ecommerce-network
     
   config-service:
+    depends_on: 
+      - rabbitmq
     build:
       context: ./config-service
       dockerfile: Dockerfile
     container_name: config-service
     ports:
       - "8888:8888"
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]  # 상태 확인 명령어
+    #   interval: 10s                  # 확인 간격
+    #   timeout: 5s                    # 타임아웃
+    #   retries: 5                     # 실패 시 재시도 횟수
+    #   start_period: 5s              # 시작 후 대기 시간
     # environment:
     #   SPRING_RABBITMQ_HOST: rabbitmq
     #   SPRING_PROFILES_ACTIVE: default
@@ -29,6 +49,10 @@ services:
       - ecommerce-network
 
   discovery-service:
+    depends_on:
+      - config-service
+      # config-service:
+      #     condition: service_healthy   # config-service가 healthy일 때만 시작
     build:
       context: ./discoveryservice
       dockerfile: Dockerfile
@@ -40,6 +64,26 @@ services:
     #   SPRING_CONFIG_IMPORT: optional:configserver:http://config-service:8888
     networks:
       - ecommerce-network
+
+  apigateway-service:
+    depends_on: 
+      - discovery-service
+    build:
+      context: ./apigateway-service
+      dockerfile: Dockerfile
+    container_name: apigateway-service
+    ports:
+      - "8000:8000"
+    environment:
+      SPRING_CLOUD_CONFIG_NAME: ecommerce
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-service:8888
+      SPRING_RABBITMQ_HOST: rabbitmq
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discovery-service:8761/eureka
+    networks:
+      - ecommerce-network
+
+  
+
 
 networks:
   ecommerce-network:
