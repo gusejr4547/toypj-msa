@@ -130,6 +130,36 @@ services:
     networks:
       - ecommerce-network
 
+  user-service:
+    depends_on: 
+      - apigateway-service
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    environment:
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-service:8888
+      SPRING_RABBITMQ_HOST: rabbitmq
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discovery-service:8761/eureka
+      LOGGING.FILE: /api-logs/users-ws.log
+    networks:
+      - ecommerce-network
+
+  order-service:
+    depends_on:
+      - apigateway-service
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    container_name: order-service
+    environment:
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discovery-service:8761/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydb
+      LOGGING.FILE: /api-logs/users-ws.log
+    networks:
+      - ecommerce-network
 
 
 networks:
