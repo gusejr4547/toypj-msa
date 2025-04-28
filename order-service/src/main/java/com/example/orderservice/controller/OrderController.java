@@ -49,7 +49,7 @@ public class OrderController {
 //        orderDto.setTotalPrice(order.getQty() * order.getUnitPrice());
 
         /* send this order to the kafka */
-//        kafkaProducer.send("example-catalog-topic", orderDto);
+        kafkaProducer.send("example-catalog-topic", orderDto);
 //        orderProducer.send("orders", orderDto);
 
 //        ResponseOrder responseOrder = orderMapper.orderDtoToResponseOrder(orderDto);
@@ -65,12 +65,13 @@ public class OrderController {
         List<ResponseOrder> result = new ArrayList<>();
         orderList.forEach(v -> result.add(orderMapper.toResponseOrder(v)));
 
-        try {
-            Thread.sleep(1000);
-            throw new Exception("장애 발생");
-        } catch (InterruptedException ex) {
-            log.warn(ex.getMessage());
-        }
+//        try {
+//            Thread.sleep(1000);
+//            throw new Exception("장애 발생");
+//        } catch (InterruptedException ex) {
+//            log.warn(ex.getMessage());
+//        }
+
         log.info("After retrieved orders data");
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
