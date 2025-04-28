@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -38,9 +40,11 @@ public class OrderEntity implements Serializable {
     @Column(nullable = false)
     private String userId;
 
-    @Column(nullable = false, updatable = false, insertable = false)
-    @ColumnDefault(value = "CURRENT_TIMESTAMP")
-    private Date createdAt;
+//    @Column(nullable = false, updatable = false, insertable = false)
+//    @ColumnDefault(value = "CURRENT_TIMESTAMP")
+    @CreationTimestamp
+    @Column(nullable = false, columnDefinition = "TIMESTAMP")
+    private LocalDateTime createdAt;
 
     @Builder
     public OrderEntity(String orderId, String productId, Integer qty, Integer unitPrice, Integer totalPrice, String userId) {
