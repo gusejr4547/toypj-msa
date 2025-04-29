@@ -91,7 +91,7 @@ services:
       KAFKA_NODE_ID: 1 # KRaft를 사용할 때 필요하다. 노드ID는 각 노드의 식별자
       KAFKA_PROCESS_ROLES: "broker,controller" # zookeeper를 사용하지 않고 KRaft를 사용
       KAFKA_LISTENERS: "CONTROLLER://:9093,PLAINTEXT_HOST://:9092,PLAINTEXT://:19092" # 컨트롤러, 외부접속, 내부 브로커끼리 통신 포트 설정
-      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:19092,PLAINTEXT_HOST://localhost:9092" # 외부에서 브로커에 접속할때 접근할 주소.
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:19092,PLAINTEXT_HOST://kafka:9092" # 외부에서 브로커에 접속할때 접근할 주소.
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
       KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093" # zookeeper.connect와 대응하는 역할.
       KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER" # KRaft를 사용할 때 필요함.
@@ -157,10 +157,25 @@ services:
       MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discovery-service:8761/eureka
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydb
-      LOGGING.FILE: /api-logs/users-ws.log
+      LOGGING.FILE: /api-logs/orders-ws.log
     networks:
       - ecommerce-network
 
+  catalog-service:
+    depends_on:
+      - apigateway-service
+    build:
+      context: ./catalog-service
+      dockerfile: Dockerfile
+    container_name: catalog-service
+    environment:
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-service:8888
+      SPRING_RABBITMQ_HOST: rabbitmq
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://discovery-service:8761/eureka
+      LOGGING.FILE: /api-logs/catalogs-ws.log
+    networks:
+      - ecommerce-network
 
 networks:
   ecommerce-network:
