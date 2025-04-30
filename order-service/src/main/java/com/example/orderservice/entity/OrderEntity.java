@@ -46,13 +46,17 @@ public class OrderEntity implements Serializable {
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
+    @Column(nullable = false)
+    private String orderStatus;
+
     @Builder
-    public OrderEntity(String orderId, String productId, Integer qty, Integer unitPrice, Integer totalPrice, String userId) {
+    public OrderEntity(String orderId, String productId, Integer qty, Integer unitPrice, Integer totalPrice, String userId, String orderStatus) {
         this.orderId = orderId;
         this.productId = productId;
         this.qty = qty;
         this.unitPrice = unitPrice;
         this.totalPrice = totalPrice;
         this.userId = userId;
+        this.orderStatus = orderStatus;
     }
 }

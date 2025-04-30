@@ -49,7 +49,7 @@ public class OrderController {
 //        orderDto.setTotalPrice(order.getQty() * order.getUnitPrice());
 
         /* send this order to the kafka */
-        kafkaProducer.send("example-catalog-topic", orderDto);
+//        kafkaProducer.send("example-catalog-topic", orderDto);
 //        orderProducer.send("orders", orderDto);
 
 //        ResponseOrder responseOrder = orderMapper.orderDtoToResponseOrder(orderDto);
