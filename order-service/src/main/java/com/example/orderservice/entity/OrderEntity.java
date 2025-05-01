@@ -1,6 +1,7 @@
 package com.example.orderservice.entity;
 
 import jakarta.persistence.*;
+import jakarta.ws.rs.NotFoundException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,7 +41,7 @@ public class OrderEntity implements Serializable {
     @Column(nullable = false)
     private String userId;
 
-//    @Column(nullable = false, updatable = false, insertable = false)
+    //    @Column(nullable = false, updatable = false, insertable = false)
 //    @ColumnDefault(value = "CURRENT_TIMESTAMP")
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
@@ -58,5 +59,9 @@ public class OrderEntity implements Serializable {
         this.totalPrice = totalPrice;
         this.userId = userId;
         this.orderStatus = orderStatus;
+    }
+
+    public void changeOrderStatus(String status) {
+        this.orderStatus = status;
     }
 }

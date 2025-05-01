@@ -1,6 +1,7 @@
 package com.example.orderservice.messagequeue;
 
 import com.example.orderservice.dto.OrderDto;
+import com.example.orderservice.dto.OrderProduceDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class KafkaProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, OrderProduceDto> catalogKafkaTemplate;
 
     public OrderDto send(String topic, OrderDto orderDto) {
         ObjectMapper mapper = new ObjectMapper();
@@ -27,6 +29,11 @@ public class KafkaProducer {
         log.info("Kafka Producer sent data from the Order microservice: " + orderDto);
 
         return orderDto;
+    }
+
+    public void send(String topic, OrderProduceDto orderProduceDto) {
+        catalogKafkaTemplate.send(topic, orderProduceDto);
+        log.info("Kafka Producer sent data from the Order microservice: " + orderProduceDto);
     }
 
 }

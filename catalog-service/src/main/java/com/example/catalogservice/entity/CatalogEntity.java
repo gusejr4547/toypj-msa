@@ -40,4 +40,8 @@ public class CatalogEntity {
         this.stock = stock;
         this.unitPrice = unitPrice;
     }
+
+    public void decrementStock(int orderStock) {
+        this.stock -= orderStock;
+    }
 }

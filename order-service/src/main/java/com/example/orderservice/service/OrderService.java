@@ -10,4 +10,6 @@ public interface OrderService {
     OrderDto createOrder(OrderDto orderDto);
     OrderDto getOrderByOrderId(String orderId);
     List<OrderEntity> getOrdersByUserId(String userId);
+
+    void changeOrderStatus(Long id, String status);
 }
