@@ -1,5 +1,6 @@
 package com.example.catalogservice.service;
 
+import com.example.catalogservice.Exception.BusinessLogicException;
 import com.example.catalogservice.dto.OrderDto;
 import com.example.catalogservice.entity.CatalogEntity;
 import com.example.catalogservice.repository.CatalogRepository;
@@ -30,7 +31,8 @@ public class CatalogServiceImpl implements CatalogService {
         int orderStock = orderDto.getQty();
 
         if (currentStock < orderStock) {
-            throw new InsufficientResourcesException("재고가 부족합니다. id: " + catalogEntity.getProductId());
+            // 커스텀 예외처리로 변경
+            throw new BusinessLogicException("재고가 부족합니다. id: " + catalogEntity.getProductId());
         }
 
         catalogEntity.decrementStock(orderStock);
