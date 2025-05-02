@@ -1,5 +1,6 @@
 package com.example.catalogservice.messagequeue;
 
+import com.example.catalogservice.dto.OrderChangeDto;
 import com.example.catalogservice.dto.OrderDto;
 import com.example.catalogservice.entity.CatalogEntity;
 import com.example.catalogservice.repository.CatalogRepository;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class KafkaConsumer {
     private final CatalogRepository catalogRepository;
     private final CatalogService catalogService;
+    private final KafkaProducer kafkaProducer;
 
 
     @KafkaListener(topics = "example-catalog-topic")
@@ -48,13 +50,15 @@ public class KafkaConsumer {
     public void decreaseStockListen(OrderDto orderDto) {
         log.info("Kafka Message: -> " + orderDto);
 
+        OrderChangeDto orderChangeDto;
         try {
             catalogService.decrementStock(orderDto);
-            System.out.println("성공");
-        }catch (Exception e){
-            System.out.println("실패");
-        }
+            orderChangeDto = new OrderChangeDto(orderDto.getId(), "Confirm", "Decrement Success");
+            kafkaProducer.send("stock-decreased", orderChangeDto);
 
-        System.out.println("kafka 보내기");
+        } catch (Exception e) {
+            orderChangeDto = new OrderChangeDto(orderDto.getId(), "Fail", e.getMessage());
+            kafkaProducer.send("stock-unavailable", orderChangeDto);
+        }
     }
 }

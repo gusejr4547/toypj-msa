@@ -51,14 +51,6 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toOrderDto(orderEntity);
     }
 
-    @Transactional
-    @Override
-    public void changeOrderStatus(Long id, String status) {
-        OrderEntity order = orderRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Not Found Order"));
-        order.changeOrderStatus(status);
-    }
-
     @Override
     public OrderDto getOrderByOrderId(String orderId) {
         OrderEntity orderEntity = orderRepository.findByOrderId(orderId);
@@ -68,5 +60,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderEntity> getOrdersByUserId(String userId) {
         return orderRepository.findByUserId(userId);
+    }
+
+    @Transactional
+    @Override
+    public void orderConfirm(Long id) {
+        OrderEntity order = orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Not Found Order"));
+        order.changeOrderStatus("Confirmed");
+    }
+
+    @Transactional
+    @Override
+    public void orderReject(Long id) {
+        OrderEntity order = orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Not Found Order"));
+        order.changeOrderStatus("Rejected");
     }
 }
