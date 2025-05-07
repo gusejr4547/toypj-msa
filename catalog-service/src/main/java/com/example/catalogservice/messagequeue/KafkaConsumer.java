@@ -26,7 +26,7 @@ public class KafkaConsumer {
     private final KafkaProducer kafkaProducer;
 
 
-    @KafkaListener(topics = "example-catalog-topic")
+    @KafkaListener(topics = "example-catalog-topic", containerFactory = "stringListenerContainerFactory")
     public void updateQty(String kafkaMessage) {
         log.info("Kafka Message: -> " + kafkaMessage);
 
@@ -46,7 +46,7 @@ public class KafkaConsumer {
         }
     }
 
-    @KafkaListener(topics = "decrease-stock")
+    @KafkaListener(topics = "decrease-stock", containerFactory = "OrderDtoListenerContainerFactory")
     public void decreaseStockListen(OrderDto orderDto) {
         log.info("Kafka Message: -> " + orderDto);
 

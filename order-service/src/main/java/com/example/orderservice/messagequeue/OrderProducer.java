@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class OrderProducer {
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
     private List<Field> fields = Arrays.asList(
             new Field("string", true, "order_id"),
             new Field("string", true, "user_id"),

@@ -13,23 +13,23 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class KafkaProducer {
-    private final KafkaTemplate<String, String> kafkaTemplate;
-    private final KafkaTemplate<String, OrderProduceDto> catalogKafkaTemplate;
+//    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, Object> catalogKafkaTemplate;
 
-    public OrderDto send(String topic, OrderDto orderDto) {
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = "";
-        try {
-            jsonInString = mapper.writeValueAsString(orderDto);
-        } catch (JsonProcessingException ex) {
-            ex.printStackTrace();
-        }
-
-        kafkaTemplate.send(topic, jsonInString);
-        log.info("Kafka Producer sent data from the Order microservice: " + orderDto);
-
-        return orderDto;
-    }
+//    public OrderDto send(String topic, OrderDto orderDto) {
+//        ObjectMapper mapper = new ObjectMapper();
+//        String jsonInString = "";
+//        try {
+//            jsonInString = mapper.writeValueAsString(orderDto);
+//        } catch (JsonProcessingException ex) {
+//            ex.printStackTrace();
+//        }
+//
+//        kafkaTemplate.send(topic, jsonInString);
+//        log.info("Kafka Producer sent data from the Order microservice: " + orderDto);
+//
+//        return orderDto;
+//    }
 
     public void send(String topic, OrderProduceDto orderProduceDto) {
         catalogKafkaTemplate.send(topic, orderProduceDto);
